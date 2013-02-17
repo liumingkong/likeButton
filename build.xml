@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="likeProject" default="all" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+ 	<property name="src.dir" value="${basedir}/src"/>
+	<property name="compile.dir" value="${basedir}/work"/>
+	<property name="lib.dir" value="${basedir}/lib"/>
+	<property name="conf.dir" value="${basedir}/conf"/>
+	<property name="jar.name" value="${basedir}/like.jar"/>
+	<property file="${conf.dir}/build.properties"/>
+
+	<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
+			 uri="antlib:org.apache.maven.artifact.ant"
+			 classpath="${basedir}/ant-lib/maven-ant-tasks-2.1.3.jar" />
+
+	<artifact:pom id="commPom" file="${conf.dir}/pom.xml" settingsFile="${conf.dir}/settings.xml"/>
+	<artifact:dependencies pathId="dependency.classpath" pomRefId="commPom">
+		<localRepository path="${lib.dir}"/>
+	</artifact:dependencies>
+			
+
+	<target name="clean" description="Cleans up all build-generated output">
+		<delete dir="${compile.dir}" failonerror="false"/>
+		<delete dir="${basedir}" includes="${jar.name}" failonerror="false" />
+	</target>
+
+	<target name="dist-clean" depends="clean" description="Cleans up all build-generated output( library cache included )" >
+		<delete dir="${lib.dir}" failonerror="false"/>
+	</target>                                                                      
+
+	<target name="compile">
+		<mkdir dir="${compile.dir}"/>
+		<javac  destdir="${compile.dir}"   includeAntRuntime="no" encoding="UTF8" debug="true">
+			<src path="${src.dir}"/>
+			<classpath refid="dependency.classpath"/>
+		</javac>
+		<copy todir="${compile.dir}">
+			<fileset dir="${src.dir}" includes="**/*.properties" />
+			<fileset dir="${src.dir}" includes="**/*.xml" excludes="build.xml" />
+		</copy>
+	</target>
+
+	<!-- convert classpath to a flat list/string for use in manifest task -->
+	<pathconvert property="mf.classpath" pathsep=" ">
+		<path refid="dependency.classpath" />
+		<flattenmapper />
+	</pathconvert>
+	
+	<!-- jar operations -->
+	<target name="jar" depends="compile">
+		<jar jarfile="${jar.name}" index="true">
+			<fileset dir="${compile.dir}" includes="**/*.class" />
+
+			<fileset dir="${conf.dir}" includes="**/*.properties"/>
+			<metainf dir="${conf.dir}" includes="aop.xml"/>
+			<manifest>
+				<attribute name="Main-Class" value="com.weibo.httpserver.HTTPServerLike"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- ant-eclipse we can update the classpath -->
+	<target name="eclipse">
+		<delete file="${basedir}/.classpath" failonerror="false"/>
+		<taskdef name="eclipse" classname="prantl.ant.eclipse.EclipseTask"
+			   classpath="${basedir}/ant-lib/ant-eclipse-1.0-jvm1.2.jar"/>
+		<eclipse>
+			<classpath>
+				<source path="src"/>
+				<output path="work"/>
+				<library pathref="dependency.classpath"/>
+			</classpath>
+		</eclipse>
+	</target>
+
+	<target name="all" depends="clean,jar" />
+	
+</project>

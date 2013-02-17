@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.weibo.likeProject</groupId>
+  <artifactId>like-project</artifactId>
+  <version>1.1</version>
+  <name>Project:likeProject</name>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>java_memcached</groupId>
+ 		<artifactId>java_memcached_release</artifactId>
+  		<version>2.6.3</version>
+	</dependency>  
+		
+  	<dependency>
+  		<groupId>org.slf4j</groupId>
+ 		<artifactId>slf4j-api</artifactId>
+  		<version>1.6.1</version>
+	</dependency>    
+	
+	<dependency>
+	  <groupId>org.slf4j</groupId>
+	  <artifactId>slf4j-simple</artifactId>
+	  <version>1.6.1</version>
+	</dependency>     
+	
+	<dependency>
+  		<groupId>mysql</groupId>
+  		<artifactId>mysql-connector-java</artifactId>
+  		<version>5.1.8</version>
+	</dependency>  
+	
+	<dependency>
+  		<groupId>org.aspectj</groupId>
+  		<artifactId>aspectjrt</artifactId>
+  		<version>1.6.12</version>
+	</dependency>  
+	
+ 	<dependency>
+  		<groupId>org.aspectj</groupId>
+  		<artifactId>aspectjweaver</artifactId>
+  		<version>1.6.12</version>
+	</dependency>   
+	
+	<dependency>
+	  <groupId>commons-jexl</groupId>
+	  <artifactId>commons-jexl</artifactId>
+	  <version>1.1</version>
+	</dependency> 
+	
+	<dependency>
+  		<groupId>commons-pool</groupId>
+ 		<artifactId>commons-pool</artifactId>
+  		<version>1.5.6</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>commons-logging</groupId>
+	  <artifactId>commons-logging</artifactId>
+	  <version>1.0.3</version>
+	</dependency>
+	
+	
+	<dependency>
+	  <groupId>log4j</groupId>
+	  <artifactId>log4j</artifactId>
+	  <version>1.2.16</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>org.perf4j</groupId>
+	  <artifactId>perf4j</artifactId>
+	  <version>0.9.16</version>
+	</dependency>
+		
+	<dependency>
+  	  <groupId>c3p0</groupId>
+  	  <artifactId>c3p0</artifactId>
+  	  <version>0.9.1.2</version>
+    </dependency>
+    
+  </dependencies>
+</project>

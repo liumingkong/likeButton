@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    
+	<!-- Perf4J appenders -->
+    <!-- This file appender is used to output raw profile logs -->
+    <appender name="rawFileAppender" class="org.apache.log4j.FileAppender">
+        <param name="File" value="../logs/perfRaw.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+
+    <!-- This file appender is used to output aggregated performance statistics -->
+    <appender name="statFileAppender" class="org.apache.log4j.FileAppender">
+        <param name="File" value="../logs/perfStats.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+    
+    <!--
+      This file appender is used to output the graph URLs generated
+      by the GraphingStatisticsAppenders
+    -->
+    <appender name="graphsFileAppender" class="org.apache.log4j.FileAppender">
+        <param name="File" value="../logs/perfGraphs.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+ 
+    <!--
+      This AsyncCoalescingStatisticsAppender groups StopWatch log messages
+      into GroupedTimingStatistics messages which it sends on the
+      file appender defined below
+    -->
+    <appender name="CoalescingStatistics"
+              class="org.perf4j.log4j.AsyncCoalescingStatisticsAppender">
+        <param name="TimeSlice" value="10000"/>
+        <appender-ref ref="statFileAppender"/>
+        <!-- TimeSlice-->
+        <appender-ref ref="showStatus.TPS"/>
+        <appender-ref ref="showStatus.Mean"/>
+        <appender-ref ref="showStatus.Max"/>
+        <appender-ref ref="showStatus.StdDev"/>
+        <appender-ref ref="showStatus.Count"/>
+	<appender-ref ref="showCount.TPS"/>
+        <appender-ref ref="showCount.Mean"/>
+        <appender-ref ref="showCount.Max"/>
+        <appender-ref ref="showCount.StdDev"/>
+        <appender-ref ref="showCount.Count"/>
+	<appender-ref ref="tagClick.TPS"/>
+        <appender-ref ref="tagClick.Mean"/>
+        <appender-ref ref="tagClick.Max"/>
+        <appender-ref ref="tagClick.StdDev"/>
+        <appender-ref ref="tagClick.Count"/>
+        <appender-ref ref="showFeedList.TPS"/>
+        <appender-ref ref="showFeedList.Mean"/>
+        <appender-ref ref="showFeedList.Max"/>
+        <appender-ref ref="showFeedList.StdDev"/>
+        <appender-ref ref="showFeedList.Count"/>	
+     </appender>     
+
+    <!-- Possible GraphTypes are Mean, Min, Max, StdDev, Count and TPS -->
+	<appender name="showStatus.TPS"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="TPS"/>
+        <param name="TagNamesToGraph" value="showStatus"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+    
+	<appender name="showStatus.Mean"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Mean"/>
+        <param name="TagNamesToGraph" value="showStatus"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+	
+	<appender name="showStatus.Max"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Max"/>
+        <param name="TagNamesToGraph" value="showStatus"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+	
+	<appender name="showStatus.StdDev"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="StdDev"/>
+        <param name="TagNamesToGraph" value="showStatus"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+
+	<appender name="showStatus.Count"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Count"/>
+        <param name="TagNamesToGraph" value="showStatus"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+
+	<appender name="tagClick.TPS"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="TPS"/>
+        <param name="TagNamesToGraph" value="tagClick"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+    
+	<appender name="tagClick.Mean"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Mean"/>
+        <param name="TagNamesToGraph" value="tagClick"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+	
+	<appender name="tagClick.Max"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Max"/>
+        <param name="TagNamesToGraph" value="tagClick"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+	
+	<appender name="tagClick.StdDev"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="StdDev"/>
+        <param name="TagNamesToGraph" value="tagClick"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+
+	<appender name="tagClick.Count"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Count"/>
+        <param name="TagNamesToGraph" value="tagClick"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+
+	<appender name="showCount.TPS"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="TPS"/>
+        <param name="TagNamesToGraph" value="showCount"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+    
+	<appender name="showCount.Mean"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Mean"/>
+        <param name="TagNamesToGraph" value="showCount"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+	
+	<appender name="showCount.Max"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Max"/>
+        <param name="TagNamesToGraph" value="showCount"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+	
+	<appender name="showCount.StdDev"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="StdDev"/>
+        <param name="TagNamesToGraph" value="showCount"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+
+	<appender name="showCount.Count"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Count"/>
+        <param name="TagNamesToGraph" value="showCount"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>	   
+    
+    	<appender name="showFeedList.TPS"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="TPS"/>
+        <param name="TagNamesToGraph" value="showFeedList"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+    
+	<appender name="showFeedList.Mean"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Mean"/>
+        <param name="TagNamesToGraph" value="showFeedList"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+	
+	<appender name="showFeedList.Max"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Max"/>
+        <param name="TagNamesToGraph" value="showFeedList"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+	
+	<appender name="showFeedList.StdDev"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="StdDev"/>
+        <param name="TagNamesToGraph" value="showFeedList"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+
+	<appender name="showFeedList.Count"
+              class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="Count"/>
+        <param name="TagNamesToGraph" value="showFeedList"/>
+        <appender-ref ref="graphsFileAppender"/>
+    </appender>
+
+ 
+    <!-- Loggers -->
+    <!--
+      The Perf4J logger. Note that org.perf4j.TimingLogger is the value of the
+      org.perf4j.StopWatch.DEFAULT_LOGGER_NAME constant. Also, note that
+      additivity is set to false, which is usually what is desired - this means
+      that timing statements will only be sent to this logger and NOT to
+      upstream loggers.
+    -->
+    <logger name="org.perf4j.TimingLogger" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="CoalescingStatistics"/>
+        <appender-ref ref="rawFileAppender"/>
+    </logger>
+
+     <root>
+        <level value="info"/>
+    </root>
+    
+</log4j:configuration>
